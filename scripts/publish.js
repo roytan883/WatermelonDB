@@ -8,9 +8,8 @@ const execa = require('execa')
 const timeout = require('p-timeout')
 const inquirer = require('inquirer')
 const semver = require('semver')
-const fs = require('fs-extra')
 
-const { when, includes, flip, both, add, contains } = require('rambdax')
+const { when, includes, flip, both, add } = require('rambdax')
 
 const pkg = require('../package.json')
 
@@ -60,7 +59,7 @@ const questions = [
 const buildTasks = options => {
   const { version } = options
 
-  const isPrerelease = contains('-', version)
+  const isPrerelease = includes('-', version)
   const tag = isPrerelease ? 'next' : 'latest'
 
   // eslint-disable-next-line

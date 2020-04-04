@@ -11,14 +11,14 @@
 </p>
 
 <p align="center">
-  <a href="https://opensource.org/licenses/MIT">
+  <a href="https://github.com/Nozbe/WatermelonDB/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
   </a>
-  
+
   <a href="https://travis-ci.com/Nozbe/WatermelonDB">
     <img src="https://api.travis-ci.com/Nozbe/WatermelonDB.svg?branch=master" alt="CI Status">
   </a>
-  
+
   <a href="https://www.npmjs.com/package/@nozbe/watermelondb">
     <img src="https://img.shields.io/npm/v/@nozbe/watermelondb.svg" alt="npm">
   </a>
@@ -35,7 +35,7 @@
 | ⏱ | Fast. Async. Multi-threaded. Highly cached. |
 | 🔗 | Relational. Built on rock-solid [SQLite](https://www.sqlite.org) foundation |
 | ⚠️ | **Static typing** with [Flow](https://flow.org) or [TypeScript](https://typescriptlang.org) |
-| 🔄 | **Offline-first.** [Sync](docs/Advanced/Sync.md) with your own backend |
+| 🔄 | **Offline-first.** [Sync](https://nozbe.github.io/WatermelonDB/Advanced/Sync.html) with your own backend |
 
 ## Why Watermelon?
 
@@ -113,26 +113,38 @@ The result is fully reactive! Whenever a post or comment is added, changed, or r
 
 ## Who uses WatermelonDB
 
-  <a href="https://nozbe4.com">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/nozbe4-hex.png" alt="Nozbe 4" width="300" />
+  <a href="https://nozbe.com/teams/">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/nozbe-teams.png" alt="Nozbe Teams" width="300" />
   </a>
-  
+
   <br>
-  
+
   <a href="https://capmo.de">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/capmo.png" alt="CAPMO" width="300" />
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/capmo.png" alt="CAPMO" width="300" />
   </a>
 
   <br>
 
   <a href="https://steady.health">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/steady.png" alt="Steady">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/steady.png" alt="Steady" width="150">
   </a>
 
   <br>
 
   <a href="https://aerobotics.com">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/aerobotics.png" alt="Aerobotics" width="300" />
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/aerobotics.png" alt="Aerobotics" width="300" />
+  </a>
+
+  <br>
+
+  <a href="https://smashappz.com">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/smashappz.jpg" alt="Smash Appz" width="300" />
+  </a>
+
+  <br>
+
+  <a href="https://rocket.chat/">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/rocketchat.png" alt="Rocket Chat" width="300" />
   </a>
 
   <br>

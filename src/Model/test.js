@@ -10,7 +10,7 @@ import { field, date, readonly } from '../decorators'
 import { noop, allPromises } from '../utils/fp'
 import { sanitizedRaw } from '../RawRecord'
 
-import Model, { experimentalSetOnlyMarkAsChangedIfDiffers } from './index'
+import Model from './index'
 import { fetchChildren } from './helpers'
 
 const mockSchema = appSchema({
@@ -121,6 +121,44 @@ describe('CRUD', () => {
       col4: null,
       number: 0,
     })
+  })
+  it('_prepareCreateFromDirtyRaw: can instantiate new records', () => {
+    const database = makeDatabase()
+    const collection = database.collections.get('mock')
+    const m1 = MockModel._prepareCreateFromDirtyRaw(collection, { name: 'Some name' })
+
+    expect(m1.collection).toBe(collection)
+    expect(m1._isEditing).toBe(false)
+    expect(m1._isCommitted).toBe(false)
+    expect(m1.id.length).toBe(16)
+    expect(m1.createdAt).toBe(undefined)
+    expect(m1.updatedAt).toBe(undefined)
+    expect(m1.name).toBe('Some name')
+    expect(m1._raw).toEqual({
+      id: m1.id,
+      _status: 'created',
+      _changed: '',
+      name: 'Some name',
+      otherfield: '',
+      col3: '',
+      col4: null,
+      number: 0,
+    })
+
+    // can take the entire raw record without changing if it's valid
+    const raw = Object.freeze({
+      id: 'abcde67890123456',
+      _status: 'synced',
+      _changed: '',
+      name: 'Hey',
+      otherfield: 'foo',
+      col3: '',
+      col4: null,
+      number: 100,
+    })
+    const m2 = MockModel._prepareCreateFromDirtyRaw(collection, raw)
+    expect(m2._raw).toEqual(raw)
+    expect(m2._raw).not.toBe(raw)
   })
   it('can update a record', async () => {
     const database = makeDatabase()
@@ -311,6 +349,9 @@ describe('Safety features', () => {
     expect(() => {
       model._setRaw('name', 'new')
     }).toThrow()
+    expect(() => {
+      model._dangerouslySetRawWithoutMarkingColumnChange('name', 'new')
+    }).toThrow()
   })
   it('disallows changes to just-deleted records', async () => {
     const database = makeDatabase()
@@ -469,17 +510,25 @@ describe('RawRecord manipulation', () => {
   it('allows raw writes via _setRaw', () => {
     const model = new MockModel(
       { schema: mockSchema.tables.mock },
-      sanitizedRaw(
-        {
-          name: 'val1',
-        },
-        mockSchema.tables.mock,
-      ),
+      sanitizedRaw({ name: 'val1' }, mockSchema.tables.mock),
     )
 
     model._isEditing = true
     model._setRaw('name', 'val2')
     model._setRaw('otherfield', 'val3')
+
+    expect(model._raw.name).toBe('val2')
+    expect(model._raw.otherfield).toBe('val3')
+  })
+  it('allows raw writes via _dangerouslySetRawWithoutMarkingColumnChange', () => {
+    const model = new MockModel(
+      { schema: mockSchema.tables.mock },
+      sanitizedRaw({ name: 'val1' }, mockSchema.tables.mock),
+    )
+
+    model._isEditing = true
+    model._dangerouslySetRawWithoutMarkingColumnChange('name', 'val2')
+    model._dangerouslySetRawWithoutMarkingColumnChange('otherfield', 'val3')
 
     expect(model._raw.name).toBe('val2')
     expect(model._raw.otherfield).toBe('val3')
@@ -523,16 +572,8 @@ describe('Sync status fields', () => {
   it('adds to changes on _setRaw (new behavior)', async () => {
     const model = new MockModel(
       { schema: mockSchema.tables.mock },
-      sanitizedRaw(
-        {
-          col3: '',
-          number: 0,
-        },
-        mockSchema.tables.mock,
-      ),
+      sanitizedRaw({ col3: '', number: 0 }, mockSchema.tables.mock),
     )
-
-    experimentalSetOnlyMarkAsChangedIfDiffers(true)
 
     model._isEditing = true
     model._raw.id = 'xxx'
@@ -556,8 +597,26 @@ describe('Sync status fields', () => {
       col4: null,
       number: 10,
     })
+  })
+  it('does not change _changed fields when using _dangerouslySetRawWithoutMarkingColumnChange', () => {
+    const model = new MockModel(
+      { schema: mockSchema.tables.mock },
+      sanitizedRaw({}, mockSchema.tables.mock),
+    )
 
-    experimentalSetOnlyMarkAsChangedIfDiffers(false)
+    model._isEditing = true
+    model._raw._status = 'updated'
+
+    model._dangerouslySetRawWithoutMarkingColumnChange('col3', 'foo')
+
+    expect(model._raw.col3).toBe('foo')
+    expect(model._raw._status).toBe('updated')
+    expect(model._raw._changed).toBe('')
+
+    model._setRaw('otherfield', 'heh')
+    model._dangerouslySetRawWithoutMarkingColumnChange('number', 10)
+
+    expect(model._raw._changed).toBe('otherfield')
   })
   it('marks new records as status:created', async () => {
     const database = makeDatabase()
@@ -632,7 +691,7 @@ describe('Sync status fields', () => {
 })
 
 describe('Model observation', () => {
-  it('notifies observers of changes and deletion', () => {
+  it('notifies Rx observers of changes and deletion', () => {
     const model = new MockModel(null, {})
     const scheduler = makeScheduler()
 
@@ -657,6 +716,69 @@ describe('Model observation', () => {
     scheduler.expectObservable(c$).toBe(cExpected, { m: model })
     scheduler.flush()
   })
+  it('notifies subscribers of changes and deletion', async () => {
+    const { tasks } = mockDatabase()
+    const task = await tasks.create()
+
+    const observer1 = jest.fn()
+    const unsubscribe1 = task.experimentalSubscribe(observer1)
+    expect(observer1).toHaveBeenCalledTimes(0)
+
+    await task.update()
+    expect(observer1).toHaveBeenCalledTimes(1)
+    expect(observer1).toHaveBeenLastCalledWith(false)
+
+    const observer2 = jest.fn()
+    const unsubscribe2 = task.experimentalSubscribe(observer2)
+    expect(observer2).toHaveBeenCalledTimes(0)
+
+    unsubscribe1()
+
+    const observer3 = jest.fn()
+    const unsubscribe3 = task.experimentalSubscribe(observer3)
+
+    await task.update()
+
+    expect(observer2).toHaveBeenCalledTimes(1)
+    expect(observer3).toHaveBeenCalledTimes(1)
+
+    unsubscribe2()
+
+    await task.update()
+
+    expect(observer3).toHaveBeenCalledTimes(2)
+    expect(observer3).toHaveBeenLastCalledWith(false)
+
+    await task.markAsDeleted()
+
+    expect(observer3).toHaveBeenCalledTimes(3)
+    expect(observer3).toHaveBeenLastCalledWith(true)
+
+    unsubscribe3()
+    unsubscribe3()
+
+    expect(observer1).toHaveBeenCalledTimes(1)
+    expect(observer2).toHaveBeenCalledTimes(1)
+    expect(observer3).toHaveBeenCalledTimes(3)
+  })
+  it('unsubscribe can safely be called more than once', async () => {
+    const { tasks } = mockDatabase()
+    const task = await tasks.create()
+
+    const observer1 = jest.fn()
+    const unsubscribe1 = task.experimentalSubscribe(observer1)
+    expect(observer1).toHaveBeenCalledTimes(0)
+
+    const unsubscribe2 = task.experimentalSubscribe(() => {})
+    unsubscribe2()
+    unsubscribe2()
+
+    await task.update()
+
+    expect(observer1).toHaveBeenCalledTimes(1)
+
+    unsubscribe1()
+  })
 })
 
 describe('model helpers', () => {
@@ -671,7 +793,9 @@ describe('model helpers', () => {
     })
 
     const commentPromise = async task => {
-      const comment = await comments.create(mock => { mock.task.set(task) })
+      const comment = await comments.create(mock => {
+        mock.task.set(task)
+      })
       const commentChildren = await fetchChildren(comment)
       expect(commentChildren).toHaveLength(0)
     }

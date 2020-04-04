@@ -158,7 +158,7 @@
   Build powerful React and React Native apps that scale from hundreds to tens of thousands of records and remain <em>fast</em> ⚡️
 </p>
 <p align="center">
-  <a href="https://opensource.org/licenses/MIT">
+  <a href="https://github.com/Nozbe/WatermelonDB/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
   </a>
 <a href="https://travis-ci.com/Nozbe/WatermelonDB">
@@ -178,7 +178,7 @@
 <tr><td>⏱</td><td>Fast. Async. Multi-threaded. Highly cached.</td></tr>
 <tr><td>🔗</td><td>Relational. Built on rock-solid <a href="https://www.sqlite.org">SQLite</a> foundation</td></tr>
 <tr><td>⚠️</td><td><strong>Static typing</strong> with <a href="https://flow.org">Flow</a> or <a href="https://typescriptlang.org">TypeScript</a></td></tr>
-<tr><td>🔄</td><td><strong>Offline-first.</strong> <a href="docs/Advanced/Sync.html">Sync</a> with your own backend</td></tr>
+<tr><td>🔄</td><td><strong>Offline-first.</strong> <a href="https://nozbe.github.io/WatermelonDB/Advanced/Sync.html">Sync</a> with your own backend</td></tr>
 </tbody></table>
 <h2><a class="header" href="#why-watermelon" id="why-watermelon">Why Watermelon?</a></h2>
 <p><strong>WatermelonDB</strong> is a new way of dealing with user data in React Native and React web apps.</p>
@@ -235,16 +235,28 @@ const enhance = withObservables(['post'], ({ post }) =&gt; ({
 <p>The result is fully reactive! Whenever a post or comment is added, changed, or removed, the right components <strong>will automatically re-render</strong> on screen. Doesn't matter if a change occurred in a totally different part of the app, it all just works out of the box!</p>
 <h3><a class="header" href="#-learn-more-a-hrefhttpsnozbegithubiowatermelondbsee-full-documentationa" id="-learn-more-a-hrefhttpsnozbegithubiowatermelondbsee-full-documentationa">➡️ <strong>Learn more:</strong> <a href="https://nozbe.github.io/WatermelonDB/">see full documentation</a></a></h3>
 <h2><a class="header" href="#who-uses-watermelondb" id="who-uses-watermelondb">Who uses WatermelonDB</a></h2>
-<a href="https://nozbe4.com">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/nozbe4-hex.png" alt="Nozbe 4" width="300" />
+<a href="https://nozbe.com/teams/">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/nozbe-teams.png" alt="Nozbe Teams" width="300" />
   </a>
 <br>
 <a href="https://capmo.de">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/capmo.png" alt="CAPMO" width="300" />
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/capmo.png" alt="CAPMO" width="300" />
   </a>
 <br>
 <a href="https://steady.health">
-    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/steady.png" alt="Steady">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/steady.png" alt="Steady" width="150">
+  </a>
+<br>
+<a href="https://aerobotics.com">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/aerobotics.png" alt="Aerobotics" width="300" />
+  </a>
+<br>
+<a href="https://smashappz.com">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/smashappz.jpg" alt="Smash Appz" width="300" />
+  </a>
+<br>
+<a href="https://rocket.chat/">
+    <img src="https://github.com/Nozbe/WatermelonDB/raw/master/assets/apps/rocketchat.png" alt="Rocket Chat" width="300" />
   </a>
 <br>
 <p><em>Does your company or app use 🍉? Open a pull request and add your logo/icon with link here!</em></p>
@@ -311,7 +323,7 @@ yarn
 </code></pre>
 <p>⚠️  You might want to <code>git checkout</code> the <a href="https://github.com/Nozbe/WatermelonDB/releases">latest stable tag</a> if the demo app doesn't work</p>
 <h3><a class="header" href="#learn-to-use-watermelon" id="learn-to-use-watermelon">Learn to use Watermelon</a></h3>
-<p>Learn the bascis of how to use WatermelonDB</p>
+<p>Learn the basics of how to use WatermelonDB</p>
 <h1><a class="header" href="#installation" id="installation">Installation</a></h1>
 <p>First, add Watermelon to your project:</p>
 <pre><code class="language-bash">yarn add @nozbe/watermelondb
@@ -443,6 +455,36 @@ protected List&lt;ReactPackage&gt; getPackages() {
 </ol>
 <h2><a class="header" href="#web-setup" id="web-setup">Web setup</a></h2>
 <p>This guide assumes you use Webpack as your bundler.</p>
+<ol start="3">
+<li>If you haven't already, install Babel plugins for decorators, static class properties, and async/await to get the most out of Watermelon. This assumes you use Babel 7 and already support ES6 syntax.
+<pre><code class="language-bash">yarn add --dev @babel/plugin-proposal-decorators
+yarn add --dev @babel/plugin-proposal-class-properties
+yarn add --dev @babel/plugin-transform-runtime
+</code></pre>
+or
+<pre><code class="language-bash">npm install -D @babel/plugin-proposal-decorators
+npm install -D @babel/plugin-proposal-class-properties
+npm install -D @babel/plugin-transform-runtime
+</code></pre>
+</li>
+<li>Add ES7 support to your <code>.babelrc</code> file:
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [
+    [&quot;@babel/plugin-proposal-decorators&quot;, { &quot;legacy&quot;: true }],
+    [&quot;@babel/plugin-proposal-class-properties&quot;, { &quot;loose&quot;: true }],
+    [
+      &quot;@babel/plugin-transform-runtime&quot;,
+       {
+         &quot;helpers&quot;: true,
+         &quot;regenerator&quot;: true
+       }
+    ]
+  ]
+}
+</code></pre>
+</li>
+</ol>
+<p>If you want to use Web Worker for WatermelonDB (this has pros and cons, we recommend you start without Web Workers, and evaluate later if it makes sense for your app to use them):</p>
 <ol>
 <li>
 <p>Install <a href="https://github.com/webpack-contrib/worker-loader">worker-loader</a> Webpack plugin to add support for Web Workers to your app:</p>
@@ -470,35 +512,6 @@ protected List&lt;ReactPackage&gt; getPackages() {
     // ...
     globalObject: 'this', // ⬅️ And this
   }
-}
-</code></pre>
-</li>
-<li>
-<p>If you haven't already, install Babel plugins for decorators, static class properties, and async/await to get the most out of Watermelon. This assumes you use Babel 7 and already support ES6 syntax.</p>
-<pre><code class="language-bash">yarn add --dev @babel/plugin-proposal-decorators
-yarn add --dev @babel/plugin-proposal-class-properties
-yarn add --dev @babel/plugin-transform-runtime
-</code></pre>
-<p>or</p>
-<pre><code class="language-bash">npm install -D @babel/plugin-proposal-decorators
-npm install -D @babel/plugin-proposal-class-properties
-npm install -D @babel/plugin-transform-runtime
-</code></pre>
-</li>
-<li>
-<p>Add ES7 support to your <code>.babelrc</code> file:</p>
-<pre><code class="language-json">{
-  &quot;plugins&quot;: [
-    [&quot;@babel/plugin-proposal-decorators&quot;, { &quot;legacy&quot;: true }],
-    [&quot;@babel/plugin-proposal-class-properties&quot;, { &quot;loose&quot;: true }],
-    [
-      &quot;@babel/plugin-transform-runtime&quot;,
-       {
-         &quot;helpers&quot;: true,
-         &quot;regenerator&quot;: true
-       }
-    ]
-  ]
 }
 </code></pre>
 </li>
@@ -540,6 +553,17 @@ const database = new Database({
 
 const adapter = new LokiJSAdapter({
   schema,
+  // These two options are recommended for new projects:
+  useWebWorker: false,
+  useIncrementalIndexedDB: true,
+  // It's recommended you implement this method:
+  // onIndexedDBVersionChange: () =&gt; {
+  //   // database was deleted in another browser tab (user logged out), so we must make sure we delete
+  //   // it in this tab as well
+  //   if (checkIfUserIsLoggedIn()) {
+  //     window.location.reload()
+  //   }
+  // },
 })
 
 // The rest is the same!
@@ -784,8 +808,13 @@ const starredPosts = await postsCollection.query(Q.where('is_starred', true)).fe
 <li><code>Query.observeWithColumns()</code> - used for <a href="./Components.html">sorted lists</a></li>
 <li><code>Collection.findAndObserve(id)</code> — same as using <code>.find(id)</code> and then calling <code>record.observe()</code></li>
 <li><code>Model.prepareUpdate()</code>, <code>Collection.prepareCreate</code>, <code>Database.batch</code> — used for <a href="./Actions.html">batch updates</a></li>
-<li><code>Database.unsafeResetDatabase()</code> destroys the whole database - <a href="https://github.com/Nozbe/WatermelonDB/blob/master/src/Database/index.js#L116">be sure to see this comment before using it</a></li>
+<li><code>Database.unsafeResetDatabase()</code> destroys the whole database - <a href="https://github.com/Nozbe/WatermelonDB/blob/22188ee5b6e3af08e48e8af52d14e0d90db72925/src/Database/index.js#L131">be sure to see this comment before using it</a></li>
+<li>To override the <code>record.id</code> during the creation, e.g. to sync with a remote database, you can do it by <code>record._raw</code> property. Be aware that the <code>id</code> must be of type <code>string</code>.</li>
 </ul>
+<pre><code class="language-js">await postsCollection.create(post =&gt; {
+  post._raw.id = serverId
+})
+</code></pre>
 <hr />
 <h2><a class="header" href="#next-steps-3" id="next-steps-3">Next steps</a></h2>
 <p>➡️ Now that you can create and update records, <a href="./Components.html"><strong>connect them to React components</strong></a></p>
@@ -1111,7 +1140,7 @@ commentCollection.query(
 <tr><td><code>Q.where('status', Q.like('%bl_sh%'))</code></td><td><code>/.*bl.sh.*/i</code> (See note below!)</td></tr>
 <tr><td><code>Q.where('status', Q.notLike('%bl_sh%'))</code></td><td><code>/^((!?.*bl.sh.*).)*$/i</code> (Inverse regex match) (See note below!)</td></tr>
 </tbody></table>
-<p><strong>Note:</strong> It's NOT SAFE to use <code>Q.like</code> and <code>Q.notLike</code> with user input directly, because special characters like <code>%</code> or <code>_</code> are not escaped. Always sanitize user input like so: </p>
+<p><strong>Note:</strong> It's NOT SAFE to use <code>Q.like</code> and <code>Q.notLike</code> with user input directly, because special characters like <code>%</code> or <code>_</code> are not escaped. Always sanitize user input like so:</p>
 <pre><code class="language-js">Q.like(`%${Q.sanitizeLikeString(userInput)}%`)
 Q.notLike(`%${Q.sanitizeLikeString(userInput)}%`)
 </code></pre>
@@ -1155,8 +1184,11 @@ Q.notLike(`%${Q.sanitizeLikeString(userInput)}%`)
   Q.where('likes', Q.gt(Q.column('dislikes')))
 )
 </code></pre>
-<h3><a class="header" href="#raw-queries" id="raw-queries">Raw queries</a></h3>
-<p>If this Query syntax is not enough for you, and you need to get your hands dirty on a raw SQL or Loki query, you need <strong>rawQueries</strong>. How to use them? Well, <strong>we need your help</strong> to finish this — <a href="https://github.com/Nozbe/WatermelonDB/pull/199">please contribute!</a> ❤️</p>
+<h3><a class="header" href="#raw-queries" id="raw-queries">Raw Queries</a></h3>
+<p>If this Query syntax is not enough for you, and you need to get your hands dirty on a raw SQL or Loki query, you need <strong>rawQueries</strong>. For now, only record SQL queries are available. If you need other SQL queries or LokiJS raw queries, please contribute!</p>
+<pre><code class="language-js">const records = commentCollection.unsafeFetchRecordsWithSQL('select * from comments where ...')
+</code></pre>
+<p>Please don't use this if you don't know what you're doing. The method name is called <code>unsafe</code> for a reason. You need to be sure to properly sanitize user values to avoid SQL injection, and filter out deleted records using <code>where _status is not 'deleted'</code> clause</p>
 <h3><a class="header" href="#null-behavior" id="null-behavior"><code>null</code> behavior</a></h3>
 <p>There are some gotchas you should be aware of. The <code>Q.gt</code>, <code>gte</code>, <code>lt</code>, <code>lte</code>, <code>oneOf</code>, <code>notIn</code>, <code>like</code> operators match the semantics of SQLite in terms of how they treat <code>null</code>. Those are different from JavaScript.</p>
 <p><strong>Rule of thumb:</strong> No null comparisons are allowed.</p>
@@ -1803,6 +1835,12 @@ console.log(log.finishedAt)
 </ul>
 </li>
 </ul>
+<h3><a class="header" href="#existing-backend-implementations-for-watermelondb" id="existing-backend-implementations-for-watermelondb">Existing backend implementations for WatermelonDB</a></h3>
+<p>Note that those are not maintained by WatermelonDB, and we make no endorsements about quality of these projects:</p>
+<ul>
+<li>https://github.com/AliAllaf/firemelon</li>
+<li>Did you make one? Please contribute a link!</li>
+</ul>
 <h3><a class="header" href="#current-limitations" id="current-limitations">Current limitations</a></h3>
 <ol>
 <li>If a record being pushed changes between pull and push, push will just fail. It would be better if it failed with a list of conflicts, so that <code>synchronize()</code> can automatically respond. Alternatively, sync could only send changed fields and server could automatically always just apply those changed fields to the server version (since that's what per-column client-wins resolver will do anyway)</li>
@@ -1908,6 +1946,7 @@ class Comment extends Model {
 <p>If you don't want to sanitize JSON, pass an identity function:</p>
 <pre><code class="language-js">const sanitizeReactions = json =&gt; json
 </code></pre>
+<p>The sanitizer function takes an optional second argument, which is a reference to the model. This is useful is your sanitization logic depends on the other fields in the model.</p>
 <p><strong>Warning about JSON fields</strong>:</p>
 <p>JSON fields go against relational, lazy nature of Watermelon, because <strong>you can't query or count by the contents of JSON fields</strong>. If you need or might need in the future to query records by some piece of data, don't use JSON.</p>
 <p>Only use JSON fields when you need the flexibility of complex freeform data, or the speed of having metadata without querying another table, and you are sure that you won't need to query by those metadata.</p>
@@ -2164,7 +2203,7 @@ await database.adapter.removeLocal(&quot;user_id&quot;)
 <li><code>Database</code> is a simple SQLite abstraction layer (over <a href="https://github.com/ccgus/fmdb">FMDB</a> on iOS and built-in <code>sqlite.SQLiteDatabase</code> on Android)</li>
 </ul>
 <h2><a class="header" href="#web" id="web">Web</a></h2>
-<p><code>LokiJSAdapter</code> is an adapter for the web, based around <a href="http://lokijs.org/">LokiJS</a>:</p>
+<p><code>LokiJSAdapter</code> is an adapter for the web, based around <a href="http://techfort.github.io/LokiJS/">LokiJS</a>:</p>
 <ul>
 <li>Why LokiJS? WebSQL would be a perfect fit for Watermelon, but sadly is a dead API, so we must use IndexedDB, but it's too low-level. LokiJS implements a fast querying API on top of IndexedDB.</li>
 <li><code>LokiJSAdapter</code> delegates everything to a separate thread over <code>WorkerBridge</code></li>
@@ -2287,14 +2326,170 @@ yarn ktlint
 <h1><a class="header" href="#changelog" id="changelog">Changelog</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <h2><a class="header" href="#unreleased" id="unreleased">Unreleased</a></h2>
-<h2><a class="header" href="#0140---2019-08-02" id="0140---2019-08-02">0.14.0 - 2019-08-02</a></h2>
+<h2><a class="header" href="#016---2020-03-06" id="016---2020-03-06">0.16 - 2020-03-06</a></h2>
+<h3><a class="header" href="#-breaking" id="-breaking">⚠️ Breaking</a></h3>
+<ul>
+<li><code>experimentalUseIncrementalIndexedDB</code> has been renamed to <code>useIncrementalIndexedDB</code></li>
+</ul>
+<h4><a class="header" href="#low-breakage-risk" id="low-breakage-risk">Low breakage risk</a></h4>
+<ul>
+<li>[adapters] Adapter API has changed from returning Promise to taking callbacks as the last argument. This won't affect you unless you call on adapter methods directly. <code>database.adapter</code> returns a new <code>DatabaseAdapterCompat</code> which has the same shape as old adapter API. You can use <code>database.adapter.underlyingAdapter</code> to get back <code>SQLiteAdapter</code> / <code>LokiJSAdapter</code></li>
+<li>[Collection] <code>Collection.fetchQuery</code> and <code>Collection.fetchCount</code> are removed. Please use <code>Query.fetch()</code> and <code>Query.fetchCount()</code>.</li>
+</ul>
 <h3><a class="header" href="#new-features" id="new-features">New features</a></h3>
+<ul>
+<li>[SQLiteAdapter] [iOS] Add new <code>synchronous</code> option to adapter: <code>new SQLiteAdapter({ ..., synchronous: true })</code>.
+When enabled, database operations will block JavaScript thread. Adapter actions will resolve in the
+next microtask, which simplifies building flicker-free interfaces. Adapter will fall back to async
+operation when synchronous adapter is not available (e.g. when doing remote debugging)</li>
+<li>[LokiJS] Added new <code>onQuotaExceededError?: (error: Error) =&gt; void</code> option to <code>LokiJSAdapter</code> constructor.
+This is called when underlying IndexedDB encountered a quota exceeded error (ran out of allotted disk space for app)
+This means that app can't save more data or that it will fall back to using in-memory database only
+Note that this only works when <code>useWebWorker: false</code></li>
+</ul>
+<h3><a class="header" href="#changes" id="changes">Changes</a></h3>
+<ul>
+<li>[Performance] Watermelon internals have been rewritten not to rely on Promises and allow some fetch/observe calls to resolve synchronously. Do not rely on this -- external API is still based on Rx and Promises and may resolve either asynchronously or synchronously depending on capabilities. This is meant as a internal performance optimization only for the time being.</li>
+<li>[LokiJS] [Performance] Improved worker queue implementation for performance</li>
+<li>[observation] Refactored observer implementations for performance</li>
+</ul>
+<h3><a class="header" href="#fixes" id="fixes">Fixes</a></h3>
+<ul>
+<li>Fixed a possible cause for &quot;Record ID xxx#yyy was sent over the bridge, but it's not cached&quot; error</li>
+<li>[LokiJS] Fixed an issue preventing database from saving when using <code>experimentalUseIncrementalIndexedDB</code></li>
+<li>Fixed a potential issue when using <code>database.unsafeResetDatabase()</code></li>
+<li>[iOS] Fixed issue with clearing database under experimental synchronous mode</li>
+</ul>
+<h3><a class="header" href="#new-features-experimental" id="new-features-experimental">New features (Experimental)</a></h3>
+<ul>
+<li>[Model] Added experimental <code>model.experimentalSubscribe((isDeleted) =&gt; { ... })</code> method as a vanilla JS alternative to Rx based <code>model.observe()</code>. Unlike the latter, it does not notify the subscriber immediately upon subscription.</li>
+<li>[Collection] Added internal <code>collection.experimentalSubscribe((changeSet) =&gt; { ... })</code> method as a vanilla JS alternative to Rx based <code>collection.changes</code> (you probably shouldn't be using this API anyway)</li>
+<li>[Database] Added experimental <code>database.experimentalSubscribe(['table1', 'table2'], () =&gt; { ... })</code> method as a vanilla JS alternative to Rx-based <code>database.withChangesForTables()</code>. Unlike the latter, <code>experimentalSubscribe</code> notifies the subscriber only once after a batch that makes a change in multiple collections subscribed to. It also doesn't notify the subscriber immediately upon subscription, and doesn't send details about the changes, only a signal.</li>
+<li>Added <code>experimentalDisableObserveCountThrottling()</code> to <code>@nozbe/watermelondb/observation/observeCount</code> that globally disables count observation throttling. We think that throttling on WatermelonDB level is not a good feature and will be removed in a future release - and will be better implemented on app level if necessary</li>
+<li>[Query] Added experimental <code>query.experimentalSubscribe(records =&gt; { ... })</code>, <code>query.experimentalSubscribeWithColumns(['col1', 'col2'], records =&gt; { ... })</code>, and <code>query.experimentalSubscribeToCount(count =&gt; { ... })</code> methods</li>
+</ul>
+<h2><a class="header" href="#015---2019-11-08" id="015---2019-11-08">0.15 - 2019-11-08</a></h2>
+<h3><a class="header" href="#highlights" id="highlights">Highlights</a></h3>
+<p>This is a <strong>massive</strong> new update to WatermelonDB! 🍉</p>
+<ul>
+<li>
+<p><strong>Up to 23x faster sync</strong>. You heard that right. We've made big improvements to performance.
+In our tests, with a massive sync (first login, 45MB of data / 65K records) we got a speed up of:</p>
+<ul>
+<li>5.7s -&gt; 1.2s on web (5x)</li>
+<li>142s -&gt; 6s on iOS (23x)</li>
+</ul>
+<p>Expect more improvements in the coming releases!</p>
+</li>
+<li>
+<p><strong>Improved LokiJS adapter</strong>. Option to disable web workers, important Safari 13 fix, better performance,
+and now works in Private Modes. We recommend adding <code>useWebWorker: false, experimentalUseIncrementalIndexedDB: true</code> options to the <code>LokiJSAdapter</code> constructor to take advantage of the improvements, but please read further changelog to understand the implications of this.</p>
+</li>
+<li>
+<p><strong>Raw SQL queries</strong> now available on iOS and Android thanks to the community</p>
+</li>
+<li>
+<p><strong>Improved TypeScript support</strong> — thanks to the community</p>
+</li>
+</ul>
+<h3><a class="header" href="#-breaking-1" id="-breaking-1">⚠️ Breaking</a></h3>
+<ul>
+<li>Deprecated <code>bool</code> schema column type is removed -- please change to <code>boolean</code></li>
+<li>Experimental <code>experimentalSetOnlyMarkAsChangedIfDiffers(false)</code> API is now removed</li>
+</ul>
+<h3><a class="header" href="#new-featuers" id="new-featuers">New featuers</a></h3>
+<ul>
+<li>
+<p>[Collection] Add <code>Collection.unsafeFetchRecordsWithSQL()</code> method. You can use it to fetch record using
+raw SQL queries on iOS and Android. Please be careful to avoid SQL injection and other pitfalls of
+raw queries</p>
+</li>
+<li>
+<p>[LokiJS] Introduces new <code>new LokiJSAdapter({ ..., experimentalUseIncrementalIndexedDB: true })</code> option.
+When enabled, database will be saved to browser's IndexedDB using a new adapter that only saves the
+changed records, instead of the entire database.</p>
+<p><strong>This works around a serious bug in Safari 13</strong> (https://bugs.webkit.org/show_bug.cgi?id=202137) that causes large
+databases to quickly balloon to gigabytes of temporary trash</p>
+<p>This also improves performance of incremental saves, although initial page load or very, very large saves
+might be slightly slower.</p>
+<p>This is intended to become the new default option, but it's not backwards compatible (if enabled, old database
+will be lost). <strong>You're welcome to contribute an automatic migration code.</strong></p>
+<p>Note that this option is still experimental, and might change in breaking ways at any time.</p>
+</li>
+<li>
+<p>[LokiJS] Introduces new <code>new LokiJSAdapter({ ..., useWebWorker: false })</code> option. Before, web workers
+were always used with <code>LokiJSAdapter</code>. Although web workers may have some performance benefits, disabling them
+may lead to lower memory consumption, lower latency, and easier debugging. YMMV.</p>
+</li>
+<li>
+<p>[LokiJS] Added <code>onIndexedDBVersionChange</code> option to <code>LokiJSAdapter</code>. This is a callback that's called
+when internal IDB version changed (most likely the database was deleted in another browser tab).
+Pass a callback to force log out in this copy of the app as well. Note that this only works when
+using incrementalIDB and not using web workers</p>
+</li>
+<li>
+<p>[Model] Add <code>Model._dangerouslySetRawWithoutMarkingColumnChange()</code> method. You probably shouldn't use it,
+but if you know what you're doing and want to live-update records from server without marking record as updated,
+this is useful</p>
+</li>
+<li>
+<p>[Collection] Add <code>Collection.prepareCreateFromDirtyRaw()</code></p>
+</li>
+<li>
+<p>@json decorator sanitizer functions take an optional second argument, with a reference to the model</p>
+</li>
+</ul>
+<h3><a class="header" href="#fixes-1" id="fixes-1">Fixes</a></h3>
+<ul>
+<li>Pinned required <code>rambdax</code> version to 2.15.0 to avoid console logging bug. In a future release we will switch to our own fork of <code>rambdax</code> to avoid future breakages like this.</li>
+</ul>
+<h3><a class="header" href="#improvements" id="improvements">Improvements</a></h3>
+<ul>
+<li>[Performance] Make large batches a lot faster (1.3s shaved off on a 65K insert sample)</li>
+<li>[Performance] [iOS] Make large batch inserts an order of magnitude faster</li>
+<li>[Performance] [iOS] Make encoding very large queries (with thousands of parameters) 20x faster</li>
+<li>[Performance] [LokiJS] Make batch inserts faster (1.5s shaved off on a 65K insert sample)</li>
+<li>[Performance] [LokiJS] Various performance improvements</li>
+<li>[Performance] [Sync] Make Sync faster</li>
+<li>[Performance] Make observation faster</li>
+<li>[Performance] [Android] Make batches faster</li>
+<li>Fix app glitches and performance issues caused by race conditions in <code>Query.observeWithColumns()</code></li>
+<li>[LokiJS] Persistence adapter will now be automatically selected based on availability. By default,
+IndexedDB is used. But now, if unavailable (e.g. in private mode), ephemeral memory adapter will be used.</li>
+<li>Disabled console logs regarding new observations (it never actually counted all observations) and
+time to query/count/batch (the measures were wildly inaccurate because of asynchronicity - actual
+times are much lower)</li>
+<li>[withObservables] Improved performance and debuggability (update withObservables package separately)</li>
+<li>Improved debuggability of Watermelon -- shortened Rx stacks and added function names to aid in understanding
+call stacks and profiles</li>
+<li>[adapters] The adapters interface has changed. <code>query()</code> and <code>count()</code> methods now receive a <code>SerializedQuery</code>, and <code>batch()</code> now takes <code>TableName&lt;any&gt;</code> and <code>RawRecord</code> or <code>RecordId</code> instead of <code>Model</code>.</li>
+<li>[Typescript] Typing improvements
+<ul>
+<li>Added 3 missing properties <code>collections</code>, <code>database</code> and <code>asModel</code> in Model type definition.</li>
+<li>Removed optional flag on <code>actionsEnabled</code> in the Database constructor options since its mandatory since 0.13.0.</li>
+<li>fixed several further typing issues in Model, Relation and lazy decorator</li>
+</ul>
+</li>
+<li>Changed how async functions are transpiled in the library. This could break on really old Android phones
+but shouldn't matter if you use latest version of React Native. Please report an issue if you see a problem.</li>
+<li>Avoid <code>database</code> prop drilling in the web demo</li>
+</ul>
+<h2><a class="header" href="#0141---2019-08-31" id="0141---2019-08-31">0.14.1 - 2019-08-31</a></h2>
+<p>Hotfix for rambdax crash</p>
+<ul>
+<li>[Schema] Handle invalid table schema argument in appSchema</li>
+<li>[withObservables] Added TypeScript support (<a href="https://github.com/Nozbe/withObservables/blob/master/CHANGELOG.md">changelog</a>)</li>
+<li>[Electron] avoid <code>Uncaught ReferenceError: global is not defined</code> in electron runtime (<a href="https://github.com/Nozbe/WatermelonDB/issues/453">#453</a>)</li>
+<li>[rambdax] Replaces <code>contains</code> with <code>includes</code> due to <code>contains</code> deprecation https://github.com/selfrefactor/rambda/commit/1dc1368f81e9f398664c9d95c2efbc48b5cdff9b#diff-04c6e90faac2675aa89e2176d2eec7d8R2209</li>
+</ul>
+<h2><a class="header" href="#0140---2019-08-02" id="0140---2019-08-02">0.14.0 - 2019-08-02</a></h2>
+<h3><a class="header" href="#new-features-1" id="new-features-1">New features</a></h3>
 <ul>
 <li>[Query] Added support for <code>notLike</code> queries 🎉</li>
 <li>[Actions] You can now batch delete record with all descendants using experimental functions <code>experimentalMarkAsDeleted</code> or <code>experimentalDestroyPermanently</code></li>
 </ul>
 <h2><a class="header" href="#0130---2019-07-18" id="0130---2019-07-18">0.13.0 - 2019-07-18</a></h2>
-<h3><a class="header" href="#-breaking" id="-breaking">⚠️ Breaking</a></h3>
+<h3><a class="header" href="#-breaking-2" id="-breaking-2">⚠️ Breaking</a></h3>
 <ul>
 <li>
 <p>[Database] It is now mandatory to pass <code>actionsEnabled:</code> option to Database constructor.
@@ -2313,7 +2508,7 @@ backward compatibility, but this option <strong>will be removed</strong> in a la
 to <code>migrations</code>.</p>
 </li>
 </ul>
-<h3><a class="header" href="#new-features-1" id="new-features-1">New features</a></h3>
+<h3><a class="header" href="#new-features-2" id="new-features-2">New features</a></h3>
 <ul>
 <li>[Actions] You can now batch deletes by using <code>prepareMarkAsDeleted</code> or <code>prepareDestroyPermanently</code></li>
 <li>[Sync] Performance: <code>synchronize()</code> no longer calls your <code>pushChanges()</code> function if there are no
@@ -2327,12 +2522,12 @@ behavior. For now you can import <code>experimentalSetOnlyMarkAsChangedIfDiffers
 this will be removed in the later version -- create a new issue explaining why you need this</li>
 <li>[Sync] Small perf improvements</li>
 </ul>
-<h3><a class="header" href="#improvements" id="improvements">Improvements</a></h3>
+<h3><a class="header" href="#improvements-1" id="improvements-1">Improvements</a></h3>
 <ul>
 <li>[Typescript] Improved types for SQLite and LokiJS adapters, migrations, models, the database and the logger.</li>
 </ul>
 <h2><a class="header" href="#0123---2019-05-06" id="0123---2019-05-06">0.12.3 - 2019-05-06</a></h2>
-<h3><a class="header" href="#changes" id="changes">Changes</a></h3>
+<h3><a class="header" href="#changes-1" id="changes-1">Changes</a></h3>
 <ul>
 <li>[Database] You can now update the random id schema by importing
 <code>import { setGenerator } from '@nozbe/watermelondb/utils/common/randomId'</code> and then calling <code>setGenerator(newGenenerator)</code>.
@@ -2341,11 +2536,11 @@ This allows WatermelonDB to create specific IDs for example if your backend uses
 <li>[Tests] remove cleanup for react-hooks-testing-library@0.5.0 compatibility</li>
 </ul>
 <h2><a class="header" href="#0122---2019-04-19" id="0122---2019-04-19">0.12.2 - 2019-04-19</a></h2>
-<h3><a class="header" href="#fixes" id="fixes">Fixes</a></h3>
+<h3><a class="header" href="#fixes-2" id="fixes-2">Fixes</a></h3>
 <ul>
 <li>[TypeScript] 'Cannot use 'in' operator to search for 'initializer'; decorator fix</li>
 </ul>
-<h3><a class="header" href="#changes-1" id="changes-1">Changes</a></h3>
+<h3><a class="header" href="#changes-2" id="changes-2">Changes</a></h3>
 <ul>
 <li>[Database] You can now pass falsy values to <code>Database.batch(...)</code> (false, null, undefined). This is
 useful in keeping code clean when doing operations conditionally. (Also works with <code>model.batch(...)</code>)</li>
@@ -2368,7 +2563,7 @@ React Native yet, either stick to Xcode 10.1 or manually apply this patch:
 https://github.com/Nozbe/WatermelonDB/pull/302/commits/aa4e08ad0fa55f434da2a94407c51fc5ff18e506</p>
 </li>
 </ul>
-<h3><a class="header" href="#changes-2" id="changes-2">Changes</a></h3>
+<h3><a class="header" href="#changes-3" id="changes-3">Changes</a></h3>
 <ul>
 <li>[Sync] Adds basic sync logging capability to Sync. Pass an empty object to <code>synchronize()</code> to populate it with diagnostic information:
 <pre><code class="language-js">const log = {}
@@ -2415,7 +2610,7 @@ However, if you relied on this behavior, this might be a breaking change.</li>
 <li>[Android] updated ktlint to <code>0.30.0</code></li>
 </ul>
 <h2><a class="header" href="#0101---2019-02-12" id="0101---2019-02-12">0.10.1 - 2019-02-12</a></h2>
-<h3><a class="header" href="#changes-3" id="changes-3">Changes</a></h3>
+<h3><a class="header" href="#changes-4" id="changes-4">Changes</a></h3>
 <ul>
 <li>[Android] Changed <code>compile</code> to <code>implementation</code> in Library Gradle file
 <ul>
@@ -2477,7 +2672,7 @@ resolving conflicts, finding local changes, and marking them as synced) is done 
 <li>Added <code>DatabaseProvider</code> and <code>withDatabase</code> Higher-Order Component to reduce prop drilling</li>
 <li>Added experimental Actions API. This will be documented in a future release.</li>
 </ul>
-<h3><a class="header" href="#fixes-1" id="fixes-1">Fixes</a></h3>
+<h3><a class="header" href="#fixes-3" id="fixes-3">Fixes</a></h3>
 <ul>
 <li>Fixes crash on older Android React Native targets without <code>jsc-android</code> installed</li>
 </ul>
@@ -2491,7 +2686,7 @@ resolving conflicts, finding local changes, and marking them as synced) is done 
 <li>Added support for Schema Migrations. See documentation for more details.</li>
 <li>Added fundaments for integration of Danger with Jest</li>
 </ul>
-<h3><a class="header" href="#changes-4" id="changes-4">Changes</a></h3>
+<h3><a class="header" href="#changes-5" id="changes-5">Changes</a></h3>
 <ul>
 <li>Fixed &quot;dependency cycle&quot; warning</li>
 <li>[SQLite] Fixed rare cases where database could be left in an unusable state (added missing transaction)</li>

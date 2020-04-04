@@ -20,10 +20,10 @@ npm install @nozbe/with-observables
     yarn add --dev @babel/plugin-proposal-decorators
     ```
     or
-    
+
     ```bash
     npm install -D @babel/plugin-proposal-decorators
-    
+
 2. Add ES6 decorators support to your `.babelrc` file:
     ```json
     {
@@ -38,9 +38,9 @@ npm install @nozbe/with-observables
 ### iOS (React Native)
 
 1. **Set up Babel config in your project**
-   
+
    See instructions above ⬆️
-   
+
 2. **Add Swift support to your Xcode project**:
    - Open `ios/YourAppName.xcodeproj` in Xcode
    - Right-click on **Your App Name** in the Project Navigator on the left, and click **New File…**
@@ -59,11 +59,11 @@ npm install @nozbe/with-observables
 
     1. Open your project in Xcode, right click on **Libraries** in the Project Navigator on the left and click **Add Files to "Your Project Name"**. Look under `node_modules/@nozbe/watermelondb/native/ios` and select `WatermelonDB.xcodeproj`
     2. Go to Project settings (top item in the Project navigator on the left), select your app name under **Targets** → **Build Phases** → **Link Binary With Libraries**, and add `libWatermelonDB.a`
-    
+
     For more information about linking libraries manually, [see React Native documentation](https://facebook.github.io/react-native/docs/linking-libraries-ios).
-    
+
     **Using CocoaPods**
-    
+
     [Please contribute!](https://github.com/Nozbe/WatermelonDB/issues/279)
 
 Note that Xcode 9.4 and a deployment target of at least iOS 9.0 is required (although Xcode 10 and iOS 11.0 are recommended).
@@ -71,9 +71,9 @@ Note that Xcode 9.4 and a deployment target of at least iOS 9.0 is required (alt
 ### Android (React Native)
 
 1. **Set up Babel config in your project**
-   
+
    See instructions above ⬆️
-   
+
 1. In `android/settings.gradle`, add:
 
    ```gradle
@@ -136,36 +136,6 @@ Note that Xcode 9.4 and a deployment target of at least iOS 9.0 is required (alt
 
 This guide assumes you use Webpack as your bundler.
 
-1. Install [worker-loader](https://github.com/webpack-contrib/worker-loader) Webpack plugin to add support for Web Workers to your app:
-    ```sh
-    yarn add --dev worker-loader
-    ```
-    or
-    
-    ```bash
-    npm install -D worker-loader
-    ```
-    
-2. And add this to Webpack configuration:
-    ```js
-    // webpack.config.js
-    {
-      module: {
-        rules: [
-          // ⬇️ Add this:
-          {
-            test: /\.worker\.js$/,
-            use: { loader: 'worker-loader' }
-          }
-        ]
-      },
-      // ...
-      output: {
-        // ...
-        globalObject: 'this', // ⬅️ And this
-      }
-    }
-    ```
 3. If you haven't already, install Babel plugins for decorators, static class properties, and async/await to get the most out of Watermelon. This assumes you use Babel 7 and already support ES6 syntax.
     ```bash
     yarn add --dev @babel/plugin-proposal-decorators
@@ -192,6 +162,39 @@ This guide assumes you use Webpack as your bundler.
            }
         ]
       ]
+    }
+    ```
+
+If you want to use Web Worker for WatermelonDB (this has pros and cons, we recommend you start without Web Workers, and evaluate later if it makes sense for your app to use them):
+
+1. Install [worker-loader](https://github.com/webpack-contrib/worker-loader) Webpack plugin to add support for Web Workers to your app:
+    ```sh
+    yarn add --dev worker-loader
+    ```
+    or
+
+    ```bash
+    npm install -D worker-loader
+    ```
+
+2. And add this to Webpack configuration:
+    ```js
+    // webpack.config.js
+    {
+      module: {
+        rules: [
+          // ⬇️ Add this:
+          {
+            test: /\.worker\.js$/,
+            use: { loader: 'worker-loader' }
+          }
+        ]
+      },
+      // ...
+      output: {
+        // ...
+        globalObject: 'this', // ⬅️ And this
+      }
     }
     ```
 
@@ -241,6 +244,17 @@ import LokiJSAdapter from '@nozbe/watermelondb/adapters/lokijs'
 
 const adapter = new LokiJSAdapter({
   schema,
+  // These two options are recommended for new projects:
+  useWebWorker: false,
+  useIncrementalIndexedDB: true,
+  // It's recommended you implement this method:
+  // onIndexedDBVersionChange: () => {
+  //   // database was deleted in another browser tab (user logged out), so we must make sure we delete
+  //   // it in this tab as well
+  //   if (checkIfUserIsLoggedIn()) {
+  //     window.location.reload()
+  //   }
+  // },
 })
 
 // The rest is the same!

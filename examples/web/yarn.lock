@@ -861,12 +861,13 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@nozbe/watermelondb@^0.10.1":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@nozbe/watermelondb/-/watermelondb-0.10.1.tgz#3bd1fb1f1b5aa642997272fa35761fd89d0ed0e1"
-  integrity sha512-B6laxepsf9ShEJ8PKWMTJMJdqZ/qRvnfe1OFUVjHl5yTeR3S20X8CFaPsCLgSts0o1u8FtmnWJwVceou2j9ycQ==
+"@nozbe/watermelondb@latest":
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/@nozbe/watermelondb/-/watermelondb-0.14.1.tgz#15184e711dc16b4f34e6d85ecef5bb84e718240b"
+  integrity sha512-4pYzgkG4yLJFqmViAVPvRAYydACS8aVVX7DyTJqdGnxDizpFwOWwR65Zqmm9LF39xehdOd4NcsK1o+WrPC9nwQ==
   dependencies:
-    rambdax "^1.5.6"
+    lokijs "^1.5.5"
+    rambdax "^2.13.0"
     rxjs "^6.2.2"
     rxjs-compat "^6.3.2"
     sql-escape-string "^1.1.0"
@@ -2874,14 +2875,16 @@ eslint-scope@^4.0.0:
     estraverse "^4.1.1"
 
 eslint-utils@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.3.1.tgz#9a851ba89ee7c460346f97cf8939c7298827e512"
-  integrity sha512-Z7YjnIldX+2XMcjr7ZkgEsOj/bREONV60qYeB/bjMAqqqZ4zxKyWX+BOUkdmRmA9riiIPVvo5x86m5elviOk0Q==
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.4.2.tgz#166a5180ef6ab7eb462f162fd0e6f2463d7309ab"
+  integrity sha512-eAZS2sEUMlIeCjBeubdj45dmBHQwPHWyBcT1VSYB7o9x9WRRqKxyUoiXlRjyAwzN7YEzHJlYg0NmzDRWx6GP4Q==
+  dependencies:
+    eslint-visitor-keys "^1.0.0"
 
 eslint-visitor-keys@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
-  integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
+  integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
 eslint@^4.0.0, eslint@^4.5.0:
   version "4.19.1"
@@ -4914,9 +4917,9 @@ mississippi@^3.0.0:
     through2 "^2.0.0"
 
 mixin-deep@^1.2.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
-  integrity sha512-8ZItLHeEgaqEvd5lYBXfm4EZSFCX29Jb9K+lAHhDKzReKBQKj3R+7NOF6tjqYi9t4oI8VUfaWITJQm86wnXGNQ==
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.2.tgz#1120b43dc359a785dce65b55b82e257ccf479566"
+  integrity sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
   dependencies:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
@@ -6315,10 +6318,10 @@ quick-lru@^1.0.0:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
 
-rambdax@^1.5.6:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-1.7.1.tgz#28c771d835952dc2f04c1eeb86dbb0cd6d05eca2"
-  integrity sha512-qQi0cXx1GqniSWREZKttHeXzboBYOb3RNHIoW/qeyyZZ8PehxN+wbwo2n7yqUvEBE1fkRDqEkbe8KCqH92PHZA==
+rambdax@^2.13.0:
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/rambdax/-/rambdax-2.14.1.tgz#9ede5eebd3bb502ff584592e376abf67e7f8e107"
+  integrity sha512-VCXGhXzUdzt0m0clxjVflRZsUB+O1+RzZWWefh7CQg6aMvDIypvSphRApXpPGqBOzJnQw2YBkVZZiInYx3GPfw==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.0.6"
